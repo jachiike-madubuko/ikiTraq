@@ -1,0 +1,128 @@
+enum Day {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
+}
+
+enum Quandrant {
+  LOVE
+  GOOD
+  PAID
+  NEED
+}
+
+enum FactorType {
+  Work
+  Fitness
+  Skills
+}
+
+model User {
+  id            Int           @id @default(autoincrement())
+  email         String        @unique
+  phone         String        @unique
+  joined        DateTime      @default(now())
+  name          String
+  trackStacks   TrackStack[]
+  ikigai        Ikigai
+  // settings      Json
+}
+
+model Ikigaitems {
+  id            Int           @id @default(autoincrement())
+  name          String
+  ikigai        Ikigai        @relation(fields: [ikigaiId], references: [id])
+  ikigaiId      Int
+  quandrant     Quandrant
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Ikigai {
+  id            Int           @id @default(autoincrement())
+  user          User          @relation(fields: [userId], references: [id])
+  userId        Int
+  ikigaitems    Ikigaitems[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model TrackStack {
+  id            Int           @id @default(autoincrement())
+  user          User          @relation(fields: [userId], references: [id])
+  userId        Int
+  days          DoW[]
+  tracks        Track[]
+  // trackSchema   Json
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+model Track {
+
+  id            Int           @id @default(autoincrement())
+  trackStack    TrackStack    @relation(fields: [trackStackId], references: [id])
+  trackStackId  Int
+  habit         Habit?
+  journal       Journal?
+  feel          Feel?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+}
+
+model Factor {
+  name String @unique
+  factorType  FactorType
+}
+
+model Feel {
+  id            Int           @id @default(autoincrement())
+  feel          Int
+  factor        String[]
+  track         Track         @relation(fields: [trackId], references: [id])
+  trackId       Int
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Habit {
+  id            Int           @id @default(autoincrement())
+  track         Track         @relation(fields: [trackId], references: [id])
+  trackId       Int
+  name          String        @unique
+  note          String
+  habitType     String
+  // habitData     Json
+  started       DateTime
+  isComplete    Boolean       @default(false)
+  ended         DateTime
+  days          DoW[]
+  duration      Int
+  color         String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Journal {
+  id            Int           @id @default(autoincrement())
+  track         Track         @relation(fields: [trackId], references: [id])
+  trackId       Int
+  title         String
+  content       String
+  journalType   String
+  color         String
+  // journalData   Json
+  isComplete    Boolean        @default(false)
+  wordCount     Int
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+model DoW {
+  id            Int           @id @default(autoincrement())
+  day           Day           @unique
+  abbrev        String
+}
