@@ -11,10 +11,10 @@ import {
 } from "@react-firebase/auth"
 import DaysScreen from '../screens/DaysScreen';
 import HomeScreen from '../screens/HomeScreen';
-import BlogScreen from '../screens/BlogScreen';
-import DetailsScreen from '../screens/DetailsScreen';
+import BlogScreen from '../screens/JournalScreen';
+import IkigaiScreen from '../screens/IkigaiScreen';
 import FloDayScreen from '../screens/FloDayScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import HabitScreen from '../screens/HabitScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
 
 import AuthNavigator from '../Auth';
@@ -36,21 +36,20 @@ const AppRouter = ( { changeTheme, signOut, hideSplash }: AppRouterProps ): Reac
     const Tab = createBottomTabNavigator();
     // const Tab = createTabNavigator();
     const HomeStack = createStackNavigator();
-    const BlogStack = createStackNavigator();
+    const JournalStack = createStackNavigator();
     const MainDrawerNav = createDrawerNavigator();
-    const NestedDrawerNav = createDrawerNavigator();
-    const SettingsStack = createDrawerNavigator();
-   const DetailsStack = createDrawerNavigator();
+    const HabitStack = createStackNavigator();
+    const IkigaiStack = createStackNavigator();
 
     const showApp = () => hideSplash();
 
-    const DrawerContent = ( { navigation, state }:DrawerContentComponentProps ) => {
+    const DrawerContent = ( { navigation, state }: DrawerContentComponentProps ) => {
         const [taskName, settaskName] = React.useState( '' );
         const [index, setindex] = React.useState( 0 );
         const data = [{ title: 'Flo' }, { title: 'Stats' }, { title: 'Blog' }, { title: 'Settings' }]
         const onSelect = ( index ) => {
             navigation.navigate( "Main", { screen: data[index].title } );
-            setindex(index)
+            setindex( index )
         };
         return (
             <>
@@ -82,18 +81,23 @@ const AppRouter = ( { changeTheme, signOut, hideSplash }: AppRouterProps ): Reac
 
     const HomeStackScreen = () => {
         return (
-            <HomeStack.Navigator initialRouteName={"Home"} screenOptions={{
-                animationEnabled: true,
-                header: ( { scene, previous, navigation } ) => {
-                    const { options } = scene.descriptor;
-                    const title = scene.route.name;
+            <HomeStack.Navigator
 
-                    return (
-                        <TopNav title={title} previous={previous} scene={scene} navigation={navigation} />
-                    );
-                }
-            }}
-                mode="card" >
+                initialRouteName={"Home"}
+                mode="card"
+                screenOptions={{
+                    animationEnabled: true,
+                    header: ( { scene, previous, navigation } ) => {
+                        const { options } = scene.descriptor;
+                        const title = scene.route.name;
+
+                        return (
+                            <TopNav title={title} previous={previous} scene={scene} navigation={navigation} />
+                        );
+                    }
+                }}
+
+            >
                 <HomeStack.Screen
                     name="Home"
                     component={HomeScreen}
@@ -110,105 +114,119 @@ const AppRouter = ( { changeTheme, signOut, hideSplash }: AppRouterProps ): Reac
         );
     }
 
-
-    const DetailsStackScreen = () => {
+    const IkigaiStackScreen = () => {
         return (
-            <DetailsStack.Navigator>
-                <DetailsStack.Screen
-                    name="B"
-                    component={DetailsScreen}
+            <IkigaiStack.Navigator
+                initialRouteName={"Ikigai"}
+                mode="card"
+                screenOptions={{
+                    animationEnabled: true,
+                    header: ( { scene, previous, navigation } ) => {
+                        const { options } = scene.descriptor;
+                        const title = scene.route.name;
+
+                        return (
+                            <TopNav title={title} previous={previous} scene={scene} navigation={navigation} />
+                        );
+                    }
+                }}
+
+            >
+                <IkigaiStack.Screen
+                    name="Ikigai"
+                    component={IkigaiScreen}
                 />
-            </DetailsStack.Navigator>
+            </IkigaiStack.Navigator>
         );
     }
 
-
-    const SettingsStackScreen = () => {
+    const HabitStackScreen = () => {
         return (
-            <SettingsStack.Navigator>
-                <SettingsStack.Screen
-                    name="B"
-                    component={SettingsScreen}
+            <HabitStack.Navigator
+                initialRouteName={"Home"}
+                mode="card"
+                screenOptions={{
+                    animationEnabled: true,
+                    header: ( { scene, previous, navigation } ) => {
+                        const { options } = scene.descriptor;
+                        const title = scene.route.name;
+
+                        return (
+                            <TopNav title={title} previous={previous} scene={scene} navigation={navigation} />
+                        );
+                    }
+                }}
+            >
+                <HabitStack.Screen
+                    name="Habit"
+
+                    component={HabitScreen}
                 />
-            </SettingsStack.Navigator>
+            </HabitStack.Navigator>
         );
     }
-    const BlogStackScreen = () => {
+    const JournalStackScreen = () => {
         return (
-            <BlogStack.Navigator>
-                <BlogStack.Screen
-                    name="B"
+            <JournalStack.Navigator
+                screenOptions={{
+                    animationEnabled: true,
+                    header: ( { scene, previous, navigation } ) => {
+                        const { options } = scene.descriptor;
+                        const title = scene.route.name;
+
+                        return (
+                            <TopNav title={title} previous={previous} scene={scene} navigation={navigation} />
+                        );
+                    }
+                }}
+            >
+                <JournalStack.Screen
+                    name="Journal"
                     component={BlogScreen}
                 />
-            </BlogStack.Navigator>
+            </JournalStack.Navigator>
         );
     }
 
 
     const MainStack = () => {
         return (
-            <Tab.Navigator key={"Main"} tabBar={props => <BottomNav {...props} />}
-                screenOptions={{
-
-                }}>
-                <Tab.Screen name="Flo" component={HomeStackScreen} />
-                <Tab.Screen name="Stats" component={DetailsStackScreen} />
-                <Tab.Screen name="Blog" component={BlogStackScreen} />
-                <Tab.Screen name="Setting" component={SettingsStackScreen} />
+            <Tab.Navigator key={"Main"} tabBar={props => <BottomNav {...props} />}>
+                <Tab.Screen name="Dashboard" component={HomeStackScreen} />
+                <Tab.Screen name="Ikigai" component={IkigaiStackScreen} />
+                <Tab.Screen name="Journal" component={JournalStackScreen} />
+                <Tab.Screen name="Habit" component={HabitStackScreen} />
             </Tab.Navigator>
         )
     }
 
-    const NestedDrawerScreen = () => (
-        <NestedDrawerNav.Navigator openByDefault drawerContentOptions={d} drawerPosition="right" drawerType="permanent" drawerContent={props => <DrawerContent {...props} />}>
-            <NestedDrawerNav.Screen component={MainStack} name="Main" />
-
-        </NestedDrawerNav.Navigator>
-    )
-
-
-    const t = true;
     const d: DrawerContentOptions = {
 
     }
     return (
-        <>
-            <FirebaseAuthConsumer>
-                {( { isSignedIn } ) => {
-                    showApp()
-
-                    if ( isSignedIn === true ) {
-                        return (
-
-                            <>
-                                {t ? (
-                                <MainDrawerNav.Navigator drawerContentOptions={d} drawerStyle={{ borderColor: "transparent", backgroundColor: "transparent" }} drawerPosition="left" drawerType="permanent" drawerContent={props => <DrawerContent {...props} />}>
-                                    <MainDrawerNav.Screen component={MainStack} name="Main" />
-                                </MainDrawerNav.Navigator>
-
-                                ): (
-
-                                <MainDrawerNav.Navigator openByDefault drawerContentOptions={d} drawerStyle={{ borderColor: "transparent", backgroundColor: "transparent" }} drawerPosition="left" drawerType="permanent" drawerContent={props => <DrawerContent {...props} />}>
-                                    <MainDrawerNav.Screen component={NestedDrawerScreen} name="Main" />
-                                </MainDrawerNav.Navigator>
-                                )}
-                            </>
-                        )
-                    } else {
-                        return (
-                            <Stack.Navigator headerMode="none">
-                                <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-                                <Stack.Screen name="Login" component={AuthNavigator} />
-                            </Stack.Navigator>
-                        )
-                    }
-                }}
-            </FirebaseAuthConsumer>
-        </>
+        <FirebaseAuthConsumer>
+            {( { isSignedIn } ) => {
+                showApp()
+                if ( isSignedIn === true ) {
+                    return (
+                        <MainDrawerNav.Navigator drawerContentOptions={d} drawerStyle={{ borderColor: "transparent", backgroundColor: "transparent" }} drawerPosition="left" drawerContent={props => <DrawerContent {...props} />}>
+                            <MainDrawerNav.Screen component={MainStack} name="Main" />
+                        </MainDrawerNav.Navigator>
+                    )
+                } else {
+                    return (
+                        <Stack.Navigator headerMode="none">
+                            <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+                            <Stack.Screen name="Login" component={AuthNavigator} />
+                        </Stack.Navigator>
+                    )
+                }
+            }}
+        </FirebaseAuthConsumer>
     )
 }
 
-export default observer( AppRouter );
+export default AppRouter;
 
 
 // let iconName: IconNames;

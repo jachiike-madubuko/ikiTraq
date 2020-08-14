@@ -9,47 +9,38 @@ const AuthForm = ( props ) => {
     const [password, setPassword] = React.useState( '' );
 
     const submitAuth = ( e: NativeSyntheticEvent<TextInputKeyPressEventData> ) => e.nativeEvent.key === 'Enter' && props.auth()
-    const focusPassword = ( e: NativeSyntheticEvent<TextInputKeyPressEventData> ) => e.nativeEvent.key === 'Enter' && setSelectedIndex(selectedIndex + 1)
+    const focusPassword = ( e: NativeSyntheticEvent<TextInputKeyPressEventData> ) => e.nativeEvent.key === 'Enter' && setSelectedIndex( selectedIndex + 1 )
     const shouldLoadComponent = ( index ) => index === selectedIndex;
 
     const changeEmail = ( email: string ) => {
         setEmail( email )
-        props.changeEmail(email)
+        props.changeEmail( email )
     }
 
     const changePassword = ( password: string ) => {
         setPassword( password )
-        props.changePassword( password)
+        props.changePassword( password )
     }
     return (
         <Card>
-            <ViewPager
-                selectedIndex={selectedIndex}
-                onSelect={setSelectedIndex}
-                shouldLoadComponent={shouldLoadComponent}
-            >
-                <Card>
-                <Input
-                    status='control'
-                    value={email}
-                    label="Email"
-                    onChangeText={changeEmail}
-                    autoFocus
-                    onKeyPress={focusPassword}
-                    />
-                </Card>
-                <Card>
+            <Input
+                status='control'
+                value={email}
+                label="Email"
+                onChangeText={changeEmail}
+                autoFocus
+                onKeyPress={focusPassword}
+            />
 
-                <Input
-                    status='control'
-                    value={password}
-                    onChangeText={changePassword}
-                    autoFocus
-                    label="Password"
-                    />
-                    </Card>
 
-            </ViewPager>
+            <Input
+                status='control'
+                value={password}
+                onChangeText={changePassword}
+                
+                label="Password"
+            />
+
         </Card>
     );
 };

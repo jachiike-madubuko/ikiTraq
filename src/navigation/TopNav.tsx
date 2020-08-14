@@ -7,10 +7,12 @@ import {
 } from '@ui-kitten/components';
 import { Scene, StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types';
 import { Route } from '@react-navigation/native';
+import StatusBarHeight from '@expo/status-bar-height';
 
 const BackIcon = ( style ) => (
     <Icon {...style} name='arrow-back' />
 );
+
 
 const EditIcon = ( style ) => (
     <Icon {...style} name='edit' />
@@ -56,11 +58,14 @@ export const TopNav:React.FC<TopNavProps> = props => {
         <MenuAction onPress={props.drawerAction} />,
     ];
 
+
+
     return (
         <TopNavigation
-            style={{flex:1}}
+            style={{flex:1,height:50, paddingTop: 30}}
             title={props.title}
             alignment='center'
+            titleStyle={{marginTop:15}}
 
 
             leftControl={renderLeftControl()}

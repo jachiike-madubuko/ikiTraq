@@ -11,9 +11,12 @@ export const BottomNav: React.FC<BottomTabBarProps> = ( { state, descriptors, na
         navigation.navigate( state.routeNames[index] );
     };
     return (
-        <SafeAreaView>
-            <BottomNavigation selectedIndex={state.index} onSelect={onSelect}>
-                {state.routes.map( ( route, index ) => {
+        <BottomNavigation
+            selectedIndex={state.index}
+            onSelect={onSelect}
+        >
+            {
+                state.routes.map( ( route, index ) => {
                     const { options } = descriptors[route.key];
                     const focused = state.index === index;
                     let iconName: IconNames;
@@ -25,17 +28,17 @@ export const BottomNav: React.FC<BottomTabBarProps> = ( { state, descriptors, na
                     const iconRef = React.useRef( null )
                     const onPress = () => {
                         iconRef.current.startAnimation()
-                        onSelect(index)
+                        onSelect( index )
                     }
 
-                    if ( route.name === 'Flo' ) {
-                        iconName = focused ? 'eye-outline' : 'github-outline';
-                    } else if ( route.name === 'Stats' ) {
-                        iconName = focused ? 'pie-chart-outline' : 'trending-up';
-                    } else if ( route.name === 'Blog' ) {
-                        iconName = focused ? 'book-open-outline' : 'edit';
-                    } else if ( route.name === 'Setting' ) {
-                        iconName = focused ? 'settings' : 'options-2-outline';
+                    if ( route.name === 'Dashboard' ) {
+                        iconName = focused ? 'home' : 'home-outline';
+                    } else if ( route.name === 'Ikigai' ) {
+                        iconName = focused ? 'bulb' : 'bulb-outline';
+                    } else if ( route.name === 'Journal' ) {
+                        iconName = focused ? 'book-open' : 'book-open-outline';
+                    } else if ( route.name === 'Habit' ) {
+                        iconName = focused ? 'layers' : 'layers-outline';
                     }
                     const theme = useTheme();
 
@@ -54,10 +57,10 @@ export const BottomNav: React.FC<BottomTabBarProps> = ( { state, descriptors, na
                     )
 
                     return (
-                        <BottomNavigationTab  icon={renderIcon}  onPress={onPress} />
+                        <BottomNavigationTab icon={renderIcon} onPress={onPress} />
                     )
-                } )}
-            </BottomNavigation>
-        </SafeAreaView>
+                } )
+            }
+        </BottomNavigation>
     );
 }

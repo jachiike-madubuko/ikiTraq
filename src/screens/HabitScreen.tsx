@@ -1,41 +1,102 @@
+import DayTracker from '../components/DayComponents/DayTracker';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { Button, Layout } from '@ui-kitten/components';
+import { Button, Card, Layout, Text, TopNavigation, List, CardHeader } from '@ui-kitten/components';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View, Dimensions, SafeAreaView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-const { width, height } = Dimensions.get( "window" )
-
+import { TopNav } from '../navigation/TopNav'
+import { moment } from 'moment';
+import CardView from '../components/AtomicDesignSystem/Organisms/CardView';
 type RootStackParamList = {
   Days: undefined;
   Home: undefined;
   Details: { userId: string };
   Settings: { sort: 'latest' | 'top' } | undefined;
 };
-type SettingsScreenRouteProp = DrawerNavigationProp<RootStackParamList>;
+type HabitScreenRouteProp = DrawerNavigationProp<RootStackParamList>;
+const { width, height } = Dimensions.get( "window" )
+const data = [
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+]
+const HabitScreen = ( props: HabitScreenRouteProp ) => {
 
-export default function SettingsScreen( props: SettingsScreenRouteProp ) {
+  const renderItem = ( { item, index } )  => (
+    (
+      <CardView item={item}/>
+    )
+  )
+
   return (
     <SafeAreaView style={styles.container}>
-
-      <Layout style={styles.container} level='4'>
-        <Layout level='4' style={{ flex: 11, flexDirection: "column", height: height }}>
-
-
-        </Layout>
+      <Layout style={styles.contentContainer} level='2'>
+        <List
+          data={data}
+          renderItem={renderItem}
+          />
       </Layout>
-    </SafeAreaView>);
+    </SafeAreaView>
+  );
 }
 
-SettingsScreen.navigationOptions = {
+
+// https://github.com/mfrachet/rn-placeholder
+
+HabitScreen.navigationOptions = {
   header: null,
 };
-
 
 
 const styles = StyleSheet.create( {
   container: {
     flex: 1,
+    padding:20,
+    paddingTop:30,
+
   },
   developmentModeText: {
     marginBottom: 20,
@@ -45,12 +106,16 @@ const styles = StyleSheet.create( {
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+    flex: 1,
+    paddingTop:30,
+    padding: 10
   },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+  footerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  footerControl: {
+    marginHorizontal: 4,
   },
   welcomeImage: {
     width: 100,
@@ -63,7 +128,7 @@ const styles = StyleSheet.create( {
     alignItems: 'center',
     marginHorizontal: 50,
   },
-  SettingsScreenFilename: {
+  journalScreenFilename: {
     marginVertical: 7,
   },
   codeHighlightText: {
@@ -118,3 +183,5 @@ const styles = StyleSheet.create( {
     color: '#2e78b7',
   },
 } );
+
+export default HabitScreen

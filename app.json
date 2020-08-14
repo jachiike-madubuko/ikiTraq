@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "uflo",
-    "slug": "uflo",
+    "name": "ikiGuide",
+    "slug": "ikiguide",
     "platforms": [
       "ios",
       "android",
@@ -24,6 +24,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": ""
   }
 }

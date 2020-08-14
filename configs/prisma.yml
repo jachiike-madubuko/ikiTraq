@@ -1,7 +1,6 @@
-endpoint: https://us1.prisma.sh/jachiike-c-madubuko/trackstack/dev
-datamodel: data.prisma
-# datamodel: datamodel.prisma
+endpoint: https://us1.prisma.sh/jachiike-c-madubuko/ikiTraq/dev
+datamodel: datamodel.prisma
 
 generate:
   - generator: typescript-client
-    output: ./prisma-client/
+    output: ../prisma-client/

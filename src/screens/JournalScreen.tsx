@@ -1,39 +1,92 @@
 import DayTracker from '../components/DayComponents/DayTracker';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { Button, Card, Layout, Text, TopNavigation } from '@ui-kitten/components';
+import { Button, Card, Layout, Text, TopNavigation, List, CardHeader } from '@ui-kitten/components';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { Platform, StyleSheet, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View, Dimensions, SafeAreaView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { TopNav } from '../navigation/TopNav'
+import { moment } from 'moment';
+import CardView from './../components/AtomicDesignSystem/Organisms/CardView';
 type RootStackParamList = {
   Days: undefined;
   Home: undefined;
   Details: { userId: string };
   Settings: { sort: 'latest' | 'top' } | undefined;
 };
-type HomeScreenRouteProp = DrawerNavigationProp<RootStackParamList>;
+type JournalScreenRouteProp = DrawerNavigationProp<RootStackParamList>;
 const { width, height } = Dimensions.get( "window" )
+const data = [
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+  {
+    title: "title",
+    content: "content",
+    date: '09-02-20'
+  },
+]
+export default function JournalScreen( props: JournalScreenRouteProp ) {
 
-export default function HomeScreen( props: HomeScreenRouteProp ) {
+  const renderItem = ( { item, index } )  => (
+    (
+      <CardView item={item}/>
+    )
+  )
+  
   return (
     <SafeAreaView style={styles.container}>
-
-      <Layout style={styles.contentContainer} level='4'>
-        <Layout level='4' style={{ flex: 11, flexDirection: "column", height: height, marginTop:10}}>
-
-            <DayTracker  />
-
-        </Layout>
+      <Layout style={styles.contentContainer} level='2'>
+        <List
+          data={data}
+          renderItem={renderItem}
+          />
       </Layout>
-      </SafeAreaView>
+    </SafeAreaView>
   );
 }
 
 
 // https://github.com/mfrachet/rn-placeholder
 
-HomeScreen.navigationOptions = {
+JournalScreen.navigationOptions = {
   header: null,
 };
 
@@ -41,7 +94,8 @@ HomeScreen.navigationOptions = {
 const styles = StyleSheet.create( {
   container: {
     flex: 1,
-    minHeight: height,
+    padding:20,
+    paddingTop:30,
 
   },
   developmentModeText: {
@@ -52,12 +106,16 @@ const styles = StyleSheet.create( {
     textAlign: 'center',
   },
   contentContainer: {
-    flex:1,
+    flex: 1,
+    paddingTop:30,
+    padding: 10
   },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+  footerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  footerControl: {
+    marginHorizontal: 4,
   },
   welcomeImage: {
     width: 100,
@@ -70,7 +128,7 @@ const styles = StyleSheet.create( {
     alignItems: 'center',
     marginHorizontal: 50,
   },
-  homeScreenFilename: {
+  journalScreenFilename: {
     marginVertical: 7,
   },
   codeHighlightText: {

@@ -9,7 +9,7 @@ import AppRouter from "./src/navigation/AppRouter";
 import firebase from "firebase/app";
 import { SplashScreen } from 'expo';
 import {FirebaseAuthProvider} from "@react-firebase/auth"
-import { config } from './fireconfig';
+import { config } from './configs/fireconfig';
 import { observer, Provider } from 'mobx-react';
 
 const themes = {

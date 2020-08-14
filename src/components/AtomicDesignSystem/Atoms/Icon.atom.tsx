@@ -83,6 +83,24 @@ export const DoneIcon = ( style) => (
 export const ExpandIcon = ( style) => (
     <Icon {...style} name='expand'  />
 );
+export const HeartIcon = ( style) => (
+    <Icon {...style} name='heart-outline'  />
+);
+export const GlobeIcon = ( style) => (
+    <Icon {...style} name='globe-2-outline'  />
+);
+export const SkillIcon = ( style) => (
+    <Icon {...style} name='award-outline'  />
+);
+export const PaidIcon = ( style) => (
+    <Icon {...style} name='briefcase-outline'  />
+);
+export const ShuffleIcon = ( style) => (
+    <Icon {...style} name='shuffle-2-outline' />
+);
+export const PlusIcon = ( style) => (
+    <Icon {...style} name='plus-square' />
+);
 
 export interface GenericIconProps {
     name: string;

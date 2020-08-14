@@ -1,72 +1,61 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { Button, Layout, Text, Card } from '@ui-kitten/components';
-import * as WebBrowser from 'expo-web-browser';
+import { Card, Input, Layout, List, ListItem, Tab, TabBar, Text, Button } from '@ui-kitten/components';
 import * as React from 'react';
-import { Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Platform, StyleSheet, } from 'react-native';
 import { TopNav } from '../navigation/TopNav';
+import { HeartIcon, GlobeIcon, SkillIcon, PaidIcon, GenericIcon, ShuffleIcon, PlusIcon } from './../components/AtomicDesignSystem/Atoms/Icon.atom';
+import LayoutRow from '../components/AtomicDesignSystem/Atoms/LayoutRow';
+import IkiSection from './../components/AtomicDesignSystem/Organisms/IkiSection';
+
 // https://github.com/mohebifar/react-native-easy-dnd
 type RootStackParamList = {
   Days: undefined;
   Home: undefined;
-  Details: { userId: string };
+  Ikigai: { userId: string };
   Settings: { sort: 'latest' | 'top' } | undefined;
 };
-type DetailsScreenRouteProp = DrawerNavigationProp<RootStackParamList>;
+type IkigaiScreenRouteProp = DrawerNavigationProp<RootStackParamList>;
+export type ikigaiType = 'love'| 'skill'| 'paid'| 'need'
+export default function IkigaiScreen( props: IkigaiScreenRouteProp ) {
 
-export default function DetailsScreen( props: DetailsScreenRouteProp ) {
+
+  const data = new Array( 18 ).fill( {
+    title: 'Item',
+  } );
+
+  const ikigai:ikigaiType[] = ['love', 'skill', 'paid', 'need']
+  const [idx, setidx] = React.useState( 0 );
+  const renderItem = ( { item, index } ) => (
+    <ListItem title={`${ikigai[idx]} ${item.title} ${index + 1}`} />
+  );
+
+
   return (
-    <>
-      <TopNav drawer title="Detail" />
-      <Layout level='4' style={styles.container}>
-        <Layout level='4' style={{ flex: 1, flexDirection: "row", margin: "2%" }}>
-          <Card style={{ flex: 1, marginHorizontal: "2%" }}>
-            <Text>
-              Performance Stat
-            </Text>
-          </Card>
-          <Card style={{ flex: 1, marginHorizontal: "2%" }}>
-            <Text>
-              Streak Stat
-            </Text>
-          </Card>
-          <Card style={{ flex: 1, marginHorizontal: "2%" }}>
-            <Text>
-              Progress Stats
-            </Text>
-          </Card>
-        </Layout>
-        <Layout level='4' style={{ flex: 1, flexDirection: "row", margin: "2%" }}>
-          <Card style={{ flex: 1, marginHorizontal: "2%" }}>
-            <Text>
-              Performance Stat
-            </Text>
-          </Card>
-          <Card style={{ flex: 1, marginHorizontal: "2%" }}>
-            <Text>
-              Streak Stat
-            </Text>
-          </Card>
-          <Card style={{ flex: 1, marginHorizontal: "2%" }}>
-            <Text>
-              Progress Stats
-            </Text>
-          </Card>
-        </Layout>
 
+    <Layout level='4' style={styles.container}>
+      <TabBar
+        selectedIndex={idx}
+        onSelect={i => setidx( i )}
+      >
+        <Tab icon={HeartIcon} />
+        <Tab icon={SkillIcon} />
+        <Tab icon={PaidIcon} />
+        <Tab icon={GlobeIcon} />
+      </TabBar>
+      <IkiSection data={data} ikiType={ikigai[idx]}/>
 
-      </Layout>
-    </>
+    </Layout>
   );
 }
 
-DetailsScreen.navigationOptions = {
+IkigaiScreen.navigationOptions = {
   header: null,
 };
 
 const styles = StyleSheet.create( {
   container: {
     flex: 11,
+    paddingTop: 18
   },
   developmentModeText: {
     marginBottom: 20,
@@ -76,7 +65,8 @@ const styles = StyleSheet.create( {
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+    minHeight: 30,
+    flex: 1,
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -94,7 +84,7 @@ const styles = StyleSheet.create( {
     alignItems: 'center',
     marginHorizontal: 50,
   },
-  DetailsScreenFilename: {
+  IkigaiScreenFilename: {
     marginVertical: 7,
   },
   codeHighlightText: {

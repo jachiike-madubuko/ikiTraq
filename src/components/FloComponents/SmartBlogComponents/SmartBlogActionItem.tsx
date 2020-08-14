@@ -6,7 +6,7 @@ import {
 } from '@ui-kitten/components';
 import { observer } from 'mobx-react'
 import { InputListItemProps, defaultDescriptions, ActionItemStruct} from '../../../types';
-import { AirbnbRating} from 'react-native-elements'
+// import { AirbnbRating} from 'react-native-elements'
 
 const SmartBlogActionItem: React.FC<InputListItemProps> = props => {
     const { actionPlanLabel, impactLabel, inputId, flo } = props;

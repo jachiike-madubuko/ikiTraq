@@ -5,7 +5,7 @@ import {
     Divider,
 } from '@ui-kitten/components';
 import { observer } from 'mobx-react'
-import { AirbnbRating } from 'react-native-elements';
+// import { AirbnbRating } from 'react-native-elements';
 import { ReviewProps, defaultDescriptions } from '../../types';
 
 const Review: React.FC<ReviewProps> = props => {
@@ -55,7 +55,7 @@ const Review: React.FC<ReviewProps> = props => {
                 />
                 <Input value={description} size="small" defaultValue={flo.data.description} onChangeText={setdescription} onBlur={update} />
                 <Divider />
-                <AirbnbRating count={descList.length} showRating defaultRating={flo.data.rating} reviews={descList} onFinishRating={setrating} />
+                {/* <AirbnbRating count={descList.length} showRating defaultRating={flo.data.rating} reviews={descList} onFinishRating={setrating} /> */}
             </Layout>
         </>
     );

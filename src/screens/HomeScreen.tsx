@@ -1,4 +1,3 @@
-import DayTracker from '../components/DayComponents/DayTracker';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { Button, Card, Layout, Text, TopNavigation } from '@ui-kitten/components';
 import * as WebBrowser from 'expo-web-browser';
@@ -17,16 +16,9 @@ const { width, height } = Dimensions.get( "window" )
 
 export default function HomeScreen( props: HomeScreenRouteProp ) {
   return (
-    <SafeAreaView style={styles.container}>
+      <Layout style={styles.container} level='4'>
 
-      <Layout style={styles.contentContainer} level='4'>
-        <Layout level='4' style={{ flex: 11, flexDirection: "column", height: height, marginTop:10}}>
-
-            <DayTracker  />
-
-        </Layout>
       </Layout>
-      </SafeAreaView>
   );
 }
 
@@ -43,7 +35,6 @@ HomeScreen.navigationOptions = {
 const styles = StyleSheet.create( {
   container: {
     flex: 1,
-    minHeight: height,
 
   },
   developmentModeText: {
