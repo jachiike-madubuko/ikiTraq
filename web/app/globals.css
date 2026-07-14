@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ *
+ *  ikiTraq design tokens
+ *  A calm, premium aesthetic: warm paper light mode, deep ink dark mode,
+ *  an ember accent for energy and four pillar hues for the ikigai map.
+ * ------------------------------------------------------------------ */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-fraunces), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+
+  --color-paper: #f7f4ef;
+  --color-paper-raised: #fffdfa;
+  --color-ink: #1b1a17;
+
+  --color-ember-50: #fff4ed;
+  --color-ember-100: #ffe4d1;
+  --color-ember-300: #ffb088;
+  --color-ember-400: #ff8f5e;
+  --color-ember-500: #f56a34;
+  --color-ember-600: #e14e1c;
+  --color-ember-700: #bb3a13;
+
+  --color-love: #f43f6f;
+  --color-skill: #8b5cf6;
+  --color-paid: #f5a524;
+  --color-need: #14b8a6;
+
+  --radius-xl: 1.1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  --shadow-soft: 0 1px 2px rgba(27, 26, 23, 0.04), 0 8px 24px -12px rgba(27, 26, 23, 0.12);
+  --shadow-lift: 0 2px 4px rgba(27, 26, 23, 0.05), 0 24px 48px -20px rgba(27, 26, 23, 0.25);
+}
+
+:root {
+  --bg: var(--color-paper);
+  --bg-raised: var(--color-paper-raised);
+  --fg: var(--color-ink);
+  --fg-muted: #6b675e;
+  --fg-subtle: #9a958a;
+  --border: #e8e2d8;
+  --border-strong: #d9d2c5;
+}
+
+.dark {
+  --bg: #131210;
+  --bg-raised: #1c1a17;
+  --fg: #f3efe7;
+  --fg-muted: #a8a294;
+  --fg-subtle: #78736a;
+  --border: #2b2823;
+  --border-strong: #3a3631;
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.4), 0 24px 48px -20px rgba(0, 0, 0, 0.7);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: var(--color-ember-300);
+    color: var(--color-ink);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+  }
+  .bg-app {
+    background-color: var(--bg);
+  }
+  .bg-raised {
+    background-color: var(--bg-raised);
+  }
+  .text-fg {
+    color: var(--fg);
+  }
+  .text-muted {
+    color: var(--fg-muted);
+  }
+  .text-subtle {
+    color: var(--fg-subtle);
+  }
+  .border-app {
+    border-color: var(--border);
+  }
+  .border-strong {
+    border-color: var(--border-strong);
+  }
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  .shadow-lift {
+    box-shadow: var(--shadow-lift);
+  }
+  .card {
+    background-color: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-soft);
+  }
+  .ring-focus:focus-visible {
+    outline: 2px solid var(--color-ember-500);
+    outline-offset: 2px;
+  }
+  .grain {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+    background-size: 4px 4px;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .animate-float {
+    animation: float 7s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .animate-in-up {
+    animation: inUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes inUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}

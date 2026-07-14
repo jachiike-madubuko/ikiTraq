@@ -1,3 +1,23 @@
+# ikiTraq
+
+Discover your **ikigai** — your reason for being — and turn it into daily rituals, habits, and
+reflection.
+
+## 🚀 Modern web rebuild (`web/`)
+
+The app has been rebuilt from the ground up as a fast, deployable web app with a high-end UI.
+See [`web/README.md`](./web/README.md) for details.
+
+- **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Framer Motion · Zustand
+- **Run it:** `cd web && npm install && npm run dev`
+- **Deploy:** Import the repo on Vercel with **Root Directory = `web`** (zero config, no secrets)
+
+The original Expo/React Native prototype remains in this directory for reference.
+
+---
+
+## Legacy prototype (Expo / React Native)
+
 ### uflo
 
 ## libraries used
